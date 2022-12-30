@@ -1,5 +1,4 @@
 name: notify-when-new-tag
-run-name: ${{github.}}
 on: 
   push:
     tags:
