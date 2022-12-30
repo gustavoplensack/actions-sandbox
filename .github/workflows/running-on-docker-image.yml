@@ -2,7 +2,7 @@ name: Test running on Docker image
 on: [push]
   
 jobs:
-  distribute-new-tag:
+  Test-centos-build:
     runs-on: ubuntu-latest
     container:
       image: docker://gustavoplensack/cmake315:centos7-x86-64
@@ -13,3 +13,17 @@ jobs:
       - run: echo "New tag is $RELEASE_VERSION"
       - run: uname -a
       - run: cmake --version
+      - run: yum install -y tmux
+      - run: ls -a
+
+  Test-ubuntu-build:
+    runs-on: ubuntu-latest
+    name: "Test action on tagging"
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - run: echo "New tag is $RELEASE_VERSION"
+      - run: uname -a
+      - run: cmake --version
+      - run: yum install -y tmux
+      - run: ls -a
