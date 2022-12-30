@@ -1,0 +1,15 @@
+name: notify-when-new-tag
+run-name: ${{github.}}
+on: 
+  push:
+    tags:
+      - "*"
+  
+jobs:
+  distribute-new-tag:
+    runs-on: ubuntu-latest
+    name: "Open Issue on Other repo"
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - run: echo "New tag is $RELEASE_VERSION"
